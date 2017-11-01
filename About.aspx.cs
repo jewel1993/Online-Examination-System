@@ -12,13 +12,15 @@ public partial class About : System.Web.UI.Page
         if (Session["user"] != null)
         {
             DateTime dt = DateTime.Now;
-            string sdt = dt.ToString("dd/MM/yyyy hh:mm:ss");
-            DateTime adt = dt.AddMinutes(3);
-            string sadt = adt.ToString("dd/MM/yyyy hh:mm:ss");
+            string sdt = dt.ToString("dd/MM/yyyy HH:mm:ss");
+            //DateTime adth = dt.AddHours(1);
+            DateTime adtm = dt.AddMinutes(10);
+            string sadt = adtm.ToString("dd/MM/yyyy HH:mm:ss");
             Session["start"] = sdt;
             Session["end"] = sadt;
             Label1.Text = sadt;
             Response.Redirect("Default2.aspx");
+            
         }
         else
             Label1.Text = "Session is off";

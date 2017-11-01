@@ -1,7 +1,8 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
   <title>Home</title>
   <meta charset="utf-8">
@@ -19,9 +20,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color: #145A32">
-	<div class="container-fluid">
-		<!--header-->
+<body>
+    <form id="form1" runat="server">
+    <!--navbar header code
 		<nav class="navbar navbar-inverse navbar-fixed-top navbar-custom" style="background-color: #">
 		  <div class="container-fluid">
 			<div class="navbar-header">
@@ -34,17 +35,44 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 			  <ul class="nav navbar-nav">
-				<li class="active"><a href="index.php">Home</a></li>
-				<li><a href="about.php">About</a></li>
-				<li><a href="contact.php">Contact Us</a></li> 
+				<li><a href="index.php">Home</a></li>
+				<li><a href="ExamEntry.aspx">About</a></li>
+				<li><a href="Result.aspx">Contact Us</a></li> 
 				<li><a href="help.php">Help</a></li> 
 			  </ul>
-
+              <ul class="nav navbar-nav navbar-right">
+						<% 
+							if(Session["sadmin"]!=null)
+							{
+                                Response.Write("<li><a href='myadmin.php'><span class='glyphicon glyphicon-user'> AdminConsole</span></a></li>");
+							}	
+							else if(Session["sid"]!=null)
+							{
+                                Response.Write("<li><a href='myaccount.php'><span class='glyphicon glyphicon-user'> MyAccount</span></a></li>");
+							}	
+							else
+							{
+                                Response.Write("<li><a href='register.php'><span class='glyphicon glyphicon-user'> Signup</span></a></li>");
+							}
+						%>
+				
+						<%
+                            if (Session["sid"]==null && Session["sadmin"] ==null)
+							{
+                                Response.Write("<li><a href='Login.aspx'><span class='glyphicon glyphicon-log-in'> Login</span></a></li>");
+							}	
+							else
+							{
+                                Response.Write("<li><a href='Logout.aspx'><span class='glyphicon glyphicon-log-in'> Logout</span></a></li>");
+							}
+						%>
+			  </ul>
             </div>
 		  </div>
 		</nav>
-        <div id="wrapper">
-        <!-- Sidebar -->
+    nav bar code ends-->
+    <div id="wrapper">
+    <!--sidebar code ends
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav" style="margin-left:0;">
                 <h1 class="sidebar-brand">
@@ -68,19 +96,28 @@
             </ul>
         </div>
 		<br/><br/>
+    sidebar code ends-->
+    <div class="col-md-12" style="background:#D5D8DC;min-height:600px;">
+    <br/><br/>
+        <div class="container">
+                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
         </div>
-		<br/><br/><br/><br/>
-		</div>
-		<div class="foot fix" style="z-index:300;">
-			<p class="centered">Welcome to Happy Wedding</p>
-		</div>
-    </body>
+     </div>
+     </div>
+     
+    <!--footer code
+    <div class="foot fix" style="z-index:300;">
+		<p class="centered">Welcome to Happy Wedding</p>
+	</div>
+    footer code ends-->
+    </form>
+</body>
 </html>
 <script>
-
     $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-    </script>
+</script>
 <!--e.preventDefault();"toggled" -->
